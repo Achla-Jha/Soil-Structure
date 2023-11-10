@@ -475,9 +475,7 @@ def phitot(sand, phitex):
 
 def swb_millennial(s, rain, npp, P0, A0, B0, M0, DOC0, alpha1, beta1, alpha2, beta2, soilp, w, u, v, h, c, dt):
     """
-    Solve models together
-    Returns
-    -------
+    Solve coupled soil water balance and Millennial models together
     """
 
     # Textural parameters
@@ -536,9 +534,7 @@ def swb_millennial(s, rain, npp, P0, A0, B0, M0, DOC0, alpha1, beta1, alpha2, be
 
 def long_run(s, rain, npp, P0, A0, B0, M0, DOC0, alpha1, beta1, alpha2, beta2, soilp, w, u, v, h, c, dt):
     """
-    Run the coupled swb and millennial model for long-term
-    -------
-
+    Run the coupled swb and millennial model for long-term i.e. 2150 years at a dynamic porosity
     """
     # print(f"Long run A0: {A0}")
     nr = len(rain)
@@ -617,7 +613,11 @@ def long_run(s, rain, npp, P0, A0, B0, M0, DOC0, alpha1, beta1, alpha2, beta2, s
     output["Years"] = years_index
     return output
 
-def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, beta2):
+def solve_long_run(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, beta2):
+    """
+    This function organizes the initial conditions, parameters, and calls the function
+    `long_run` to perform the simulations at a dynamic porosity
+    """
     
     # Initial conditions
     s = 0.3
